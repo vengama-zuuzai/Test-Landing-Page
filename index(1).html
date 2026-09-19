@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northgate Realty | Homes to buy, sell and rent</title>
+  <meta name="description" content="Northgate Realty helps you buy, sell or rent a home, with one agent by your side from the first viewing to the day you get the keys.">
+  <meta name="theme-color" content="#10243E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310243E'/%3E%3Cpath d='M5 16 16 7l11 9' fill='none' stroke='%23F5C518' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9 15v9h14v-9' fill='none' stroke='%23F5C518' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #10243E;
+      --ink-soft: #3C4E63;
+      --paper: #F6F8FA;
+      --mist: #E3EBF3;
+      --sign: #F5C518;
+      --sign-dark: #E3B400;
+      --line: #C9D6E3;
+      --white: #ffffff;
+      --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    p { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+    .on-dark :focus-visible { outline-color: var(--sign); }
+
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 13px 22px;
+      border: 2px solid var(--ink); border-radius: 8px;
+      background: var(--sign); color: var(--ink);
+      font: 600 1rem/1.2 var(--font-body);
+      text-decoration: none; cursor: pointer;
+      transition: background-color 0.15s;
+    }
+    .btn:hover { background: var(--sign-dark); }
+    .btn-small { padding: 9px 16px; font-size: 0.95rem; }
+
+    /* Header */
+    .site-header { padding: 20px 0; }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-display); font-weight: 700; font-size: 1.25rem;
+      letter-spacing: -0.01em; text-decoration: none;
+    }
+    .brand svg { width: 32px; height: 32px; display: block; }
+    .nav { display: flex; align-items: center; gap: 28px; }
+    .nav a:not(.btn) { font-weight: 500; text-decoration: none; }
+    .nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
+    /* Hero */
+    .hero { padding: clamp(24px, 5vw, 56px) 0 clamp(56px, 8vw, 96px); }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      grid-template-areas: "copy art" "finder art";
+      column-gap: 56px; row-gap: 32px; align-items: start;
+    }
+    .hero-copy { grid-area: copy; }
+    .hero-art { grid-area: art; align-self: center; }
+    .finder { grid-area: finder; }
+    .hero h1 { font-size: clamp(2.4rem, 5.4vw, 4rem); font-weight: 700; }
+    .hero-copy p { margin-top: 20px; max-width: 46ch; font-size: 1.15rem; color: var(--ink-soft); }
+    .hero-art svg { display: block; width: 100%; height: auto; border-radius: 16px; }
+    .hero-art text { font-family: var(--font-body); }
+
+    /* Property finder */
+    .finder {
+      display: grid; gap: 16px; padding: 20px;
+      background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    }
+    .finder-title { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+    .finder-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 600; }
+    input[type="text"], input[type="tel"], select, textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1px solid #7A8EA5; border-radius: 8px;
+      background: var(--white); color: var(--ink); font: inherit;
+    }
+    input::placeholder, textarea::placeholder { color: #66788C; }
+    .segmented { position: relative; display: flex; gap: 8px; min-width: 0; margin: 0; padding: 0; border: 0; }
+    .segmented input { position: absolute; opacity: 0; pointer-events: none; }
+    .segmented label {
+      flex: 1; padding: 10px 12px; text-align: center; font-weight: 600; cursor: pointer;
+      border: 2px solid var(--line); border-radius: 8px; background: var(--white);
+    }
+    .segmented input:checked + label { background: var(--ink); border-color: var(--ink); color: var(--white); }
+    .segmented input:focus-visible + label { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+    /* Sections */
+    .section { padding: clamp(56px, 8vw, 96px) 0; }
+    .section-head { max-width: 640px; margin-bottom: 40px; }
+    .section-head h2, .why h2, .contact-copy h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+    .section-head p { margin-top: 14px; color: var(--ink-soft); }
+
+    /* Listings */
+    .listings { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .listing {
+      position: relative; display: flex; flex-direction: column; overflow: hidden;
+      background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    }
+    .listing svg { display: block; width: 100%; height: auto; }
+    .listing-tag {
+      position: absolute; top: 12px; left: 12px;
+      padding: 4px 10px; border-radius: 999px;
+      background: var(--ink); color: var(--white); font-size: 0.85rem; font-weight: 600;
+    }
+    .listing-body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 18px 20px 22px; }
+    .price { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+    .listing h3 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+    .place { font-size: 0.95rem; color: var(--ink-soft); }
+    .specs { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; padding: 0; list-style: none; font-size: 0.95rem; font-weight: 500; }
+    .listing .ask { margin-top: auto; padding-top: 14px; font-weight: 600; text-underline-offset: 4px; }
+
+    /* Why us */
+    .why { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 56px; }
+    .why-item { padding: 22px 0; border-top: 2px solid var(--ink); }
+    .why-item:last-child { border-bottom: 2px solid var(--ink); }
+    .why-item h3 { font-size: 1.25rem; }
+    .why-item p { max-width: 52ch; margin-top: 8px; color: var(--ink-soft); }
+
+    /* Process */
+    .process { background: var(--mist); }
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px;
+      margin: 0; padding: 0; list-style: none;
+    }
+    .steps li { padding-top: 16px; border-top: 2px solid var(--ink); }
+    .step-num { display: block; margin-bottom: 12px; font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; }
+    .steps h3 { font-size: 1.25rem; }
+    .steps p { margin-top: 8px; color: var(--ink-soft); max-width: 36ch; }
+
+    /* Testimonial */
+    .quote { background: var(--ink); color: var(--white); }
+    .quote figure { margin: 0; }
+    .quote blockquote { margin: 0; padding-left: 24px; border-left: 6px solid var(--sign); }
+    .quote blockquote p {
+      max-width: 28ch;
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+      font-weight: 600; line-height: 1.2; letter-spacing: -0.015em;
+    }
+    .quote figcaption { margin: 24px 0 0 30px; color: #C9D6E3; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+    .contact-copy p { margin-top: 14px; max-width: 44ch; color: var(--ink-soft); }
+    .details { display: grid; gap: 16px; margin: 32px 0 0; }
+    .details dt { font-weight: 600; }
+    .details dd { margin: 2px 0 0; color: var(--ink-soft); }
+    .contact-form {
+      display: grid; gap: 16px; padding: 24px;
+      background: var(--white); border: 1px solid var(--line); border-radius: 12px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    textarea { min-height: 120px; resize: vertical; }
+    .form-note { font-size: 0.9rem; color: var(--ink-soft); }
+    .form-status { min-height: 1.4em; font-weight: 500; }
+
+    /* Footer */
+    .site-footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--ink-soft); }
+    .site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; grid-template-areas: "copy" "finder" "art"; row-gap: 32px; }
+      .why, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 760px) {
+      .nav a:not(.btn) { display: none; }
+    }
+    @media (max-width: 520px) {
+      .finder-fields, .form-row { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Northgate Realty, home">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#10243E"/>
+          <path d="M5 16 16 7l11 9" fill="none" stroke="#F5C518" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15v9h14v-9" fill="none" stroke="#F5C518" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        Northgate Realty
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#listings">Listings</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-small" href="#contact">Book a viewing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1>Find a home that fits your life and your budget.</h1>
+          <p>Northgate Realty helps you buy, sell or rent, with one agent by your side from the first viewing to the day you get the keys.</p>
+        </div>
+
+        <form class="finder" id="finder" aria-labelledby="finder-title">
+          <h2 class="finder-title" id="finder-title">What are you looking for?</h2>
+          <fieldset class="segmented">
+            <legend class="sr-only">I want to</legend>
+            <input type="radio" name="intent" id="intent-buy" value="buy" checked>
+            <label for="intent-buy">Buy</label>
+            <input type="radio" name="intent" id="intent-rent" value="rent">
+            <label for="intent-rent">Rent</label>
+            <input type="radio" name="intent" id="intent-sell" value="sell">
+            <label for="intent-sell">Sell</label>
+          </fieldset>
+          <div class="finder-fields">
+            <div class="field">
+              <label for="area">Area</label>
+              <input type="text" id="area" name="area" placeholder="e.g. Maple Grove">
+            </div>
+            <div class="field">
+              <label for="budget">Budget</label>
+              <input type="text" id="budget" name="budget" placeholder="e.g. up to $450,000">
+            </div>
+          </div>
+          <button class="btn" type="submit">Get matched with homes</button>
+        </form>
+
+        <div class="hero-art">
+          <svg viewBox="0 0 520 420" role="img" aria-label="Illustration of a house with an open house sign out front">
+            <rect width="520" height="420" fill="#E3EBF3"/>
+            <circle cx="430" cy="78" r="34" fill="#F5C518"/>
+            <rect y="352" width="520" height="68" fill="#C9D8E6"/>
+            <polygon points="286,352 336,352 376,420 246,420" fill="#F6F8FA"/>
+            <rect x="378" y="98" width="30" height="60" fill="#10243E"/>
+            <rect x="160" y="178" width="300" height="174" fill="#ffffff" stroke="#10243E" stroke-width="4"/>
+            <polygon points="140,182 310,78 480,182" fill="#10243E"/>
+            <rect x="190" y="212" width="66" height="66" fill="#E3EBF3" stroke="#10243E" stroke-width="4"/>
+            <path d="M223 212v66M190 245h66" stroke="#10243E" stroke-width="3"/>
+            <rect x="366" y="212" width="66" height="66" fill="#E3EBF3" stroke="#10243E" stroke-width="4"/>
+            <path d="M399 212v66M366 245h66" stroke="#10243E" stroke-width="3"/>
+            <rect x="286" y="262" width="50" height="90" rx="3" fill="#F5C518" stroke="#10243E" stroke-width="4"/>
+            <circle cx="325" cy="308" r="3.5" fill="#10243E"/>
+            <ellipse cx="172" cy="352" rx="32" ry="18" fill="#9FB4C9"/>
+            <ellipse cx="448" cy="352" rx="32" ry="18" fill="#9FB4C9"/>
+            <rect x="68" y="258" width="8" height="94" fill="#10243E"/>
+            <rect x="12" y="194" width="124" height="66" rx="5" fill="#F5C518" stroke="#10243E" stroke-width="4"/>
+            <text x="74" y="224" text-anchor="middle" font-size="17" font-weight="700" fill="#10243E">Open house</text>
+            <text x="74" y="245" text-anchor="middle" font-size="13" font-weight="500" fill="#10243E">This Saturday</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Listings -->
+    <section class="section" id="listings" style="padding-top: 0;">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Homes available now</h2>
+          <p>A small selection of what's on the market. Ask us about anything you don't see here.</p>
+        </div>
+
+        <div class="listings">
+          <article class="listing">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Illustration of a family house">
+              <rect width="400" height="250" fill="#DCE6F0"/>
+              <rect y="205" width="400" height="45" fill="#BFD0E0"/>
+              <rect x="120" y="105" width="160" height="100" fill="#ffffff" stroke="#10243E" stroke-width="3"/>
+              <polygon points="106,109 200,44 294,109" fill="#10243E"/>
+              <rect x="188" y="150" width="26" height="55" fill="#F5C518" stroke="#10243E" stroke-width="3"/>
+              <rect x="136" y="128" width="34" height="34" fill="#DCE6F0" stroke="#10243E" stroke-width="3"/>
+              <rect x="230" y="128" width="34" height="34" fill="#DCE6F0" stroke="#10243E" stroke-width="3"/>
+            </svg>
+            <span class="listing-tag">For sale</span>
+            <div class="listing-body">
+              <p class="price">$485,000</p>
+              <h3>Three-bedroom family home</h3>
+              <p class="place">Maple Grove</p>
+              <ul class="specs">
+                <li>3 bed</li>
+                <li>2 bath</li>
+                <li>1,850 sq ft</li>
+              </ul>
+              <a class="ask" href="#contact" data-interest="Buying" data-home="the three-bedroom family home in Maple Grove">Ask about this home</a>
+            </div>
+          </article>
+
+          <article class="listing">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Illustration of a modern townhouse">
+              <rect width="400" height="250" fill="#E6EEF3"/>
+              <rect y="205" width="400" height="45" fill="#C4D3E0"/>
+              <rect x="70" y="122" width="150" height="83" fill="#ffffff" stroke="#10243E" stroke-width="3"/>
+              <rect x="60" y="114" width="170" height="10" fill="#10243E"/>
+              <rect x="220" y="82" width="110" height="123" fill="#ffffff" stroke="#10243E" stroke-width="3"/>
+              <rect x="212" y="74" width="126" height="10" fill="#10243E"/>
+              <rect x="88" y="142" width="90" height="38" fill="#DCE6F0" stroke="#10243E" stroke-width="3"/>
+              <rect x="240" y="102" width="70" height="30" fill="#DCE6F0" stroke="#10243E" stroke-width="3"/>
+              <rect x="258" y="150" width="30" height="55" fill="#F5C518" stroke="#10243E" stroke-width="3"/>
+            </svg>
+            <span class="listing-tag">For sale</span>
+            <div class="listing-body">
+              <p class="price">$362,000</p>
+              <h3>Modern two-bedroom townhouse</h3>
+              <p class="place">Riverside</p>
+              <ul class="specs">
+                <li>2 bed</li>
+                <li>2 bath</li>
+                <li>1,320 sq ft</li>
+              </ul>
+              <a class="ask" href="#contact" data-interest="Buying" data-home="the modern two-bedroom townhouse in Riverside">Ask about this home</a>
+            </div>
+          </article>
+
+          <article class="listing">
+            <svg viewBox="0 0 400 250" role="img" aria-label="Illustration of an apartment building">
+              <defs>
+                <pattern id="windows" x="146" y="56" width="36" height="28" patternUnits="userSpaceOnUse">
+                  <rect width="20" height="16" fill="#E6EEF3" stroke="#10243E" stroke-width="2"/>
+                </pattern>
+              </defs>
+              <rect width="400" height="250" fill="#D6E2EC"/>
+              <rect y="205" width="400" height="45" fill="#B9CCDD"/>
+              <rect x="130" y="40" width="140" height="165" fill="#ffffff" stroke="#10243E" stroke-width="3"/>
+              <rect x="146" y="56" width="108" height="84" fill="url(#windows)"/>
+              <rect x="186" y="163" width="28" height="42" fill="#F5C518" stroke="#10243E" stroke-width="3"/>
+            </svg>
+            <span class="listing-tag">For rent</span>
+            <div class="listing-body">
+              <p class="price">$2,100 / month</p>
+              <h3>City-centre one-bedroom apartment</h3>
+              <p class="place">Downtown</p>
+              <ul class="specs">
+                <li>1 bed</li>
+                <li>1 bath</li>
+                <li>690 sq ft</li>
+              </ul>
+              <a class="ask" href="#contact" data-interest="Renting" data-home="the one-bedroom apartment in Downtown">Ask about this home</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why us -->
+    <section class="section" style="padding-top: 0;">
+      <div class="wrap why">
+        <h2>Why people choose Northgate</h2>
+        <div>
+          <div class="why-item">
+            <h3>We know the neighbourhoods</h3>
+            <p>Our agents live and work in the areas they sell, so you get honest answers about schools, commutes and what a fair price looks like.</p>
+          </div>
+          <div class="why-item">
+            <h3>Fees explained up front</h3>
+            <p>You'll see what we charge before you sign anything. No surprise costs at the end.</p>
+          </div>
+          <div class="why-item">
+            <h3>One agent from start to finish</h3>
+            <p>The person who shows you around is the person who handles your offer and your paperwork.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section process" id="how-it-works">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How it works</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Tell us what you need</h3>
+            <p>Share your budget, preferred areas and must-haves. It takes a ten-minute call.</p>
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>See homes that fit</h3>
+            <p>We shortlist properties and book viewings around your schedule.</p>
+          </li>
+          <li>
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Move in with confidence</h3>
+            <p>We negotiate, check the paperwork and stay with you until you have the keys.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="section quote on-dark">
+      <div class="wrap">
+        <figure>
+          <blockquote>
+            <p>Northgate found us a home in two weeks and explained every step. We never felt rushed.</p>
+          </blockquote>
+          <figcaption>Sam and Priya R., first-time buyers</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <h2>Book a viewing or ask a question</h2>
+          <p>Send us a message and an agent will reply within one working day.</p>
+          <dl class="details">
+            <div>
+              <dt>Phone</dt>
+              <dd><a href="tel:+15550100199">+1 555 010 0199</a></dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd><a href="mailto:hello@example.com">hello@example.com</a></dd>
+            </div>
+            <div>
+              <dt>Office hours</dt>
+              <dd>Monday to Saturday, 9 am to 6 pm</dd>
+            </div>
+            <div>
+              <dt>Visit us</dt>
+              <dd>12 High Street, Your City</dd>
+            </div>
+          </dl>
+        </div>
+
+        <form class="contact-form" id="contact-form" data-to="hello@example.com">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="interest">I'm interested in</label>
+            <select id="interest" name="interest">
+              <option>Buying</option>
+              <option>Selling</option>
+              <option>Renting</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us a little about what you need."></textarea>
+          </div>
+          <button class="btn" type="submit">Send message</button>
+          <p class="form-status" id="form-status" role="status"></p>
+          <p class="form-note">We only use your details to reply to this enquiry.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; <span id="year">2026</span> Northgate Realty. All rights reserved.</p>
+      <p>Licensed real estate agency. Licence no. 000000.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var contactForm = document.getElementById('contact-form');
+      var nameField = document.getElementById('name');
+      var interestField = document.getElementById('interest');
+      var messageField = document.getElementById('message');
+      var statusEl = document.getElementById('form-status');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      function goToContact(interest, message) {
+        if (interest) interestField.value = interest;
+        if (message) messageField.value = message;
+        document.getElementById('contact').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+        setTimeout(function () { nameField.focus({ preventScroll: true }); }, reduceMotion ? 0 : 500);
+      }
+
+      // Hero form: carry the answers into the contact form
+      document.getElementById('finder').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var intent = e.target.elements.intent.value;
+        var area = e.target.elements.area.value.trim();
+        var budget = e.target.elements.budget.value.trim();
+        var interest = { buy: 'Buying', rent: 'Renting', sell: 'Selling' }[intent];
+        var verb = { buy: 'buy a home', rent: 'rent a home', sell: 'sell a property' }[intent];
+        var message = "I'd like to " + verb + (area ? ' in ' + area : '') + '.';
+        if (budget) message += ' My budget is ' + budget + '.';
+        goToContact(interest, message);
+      });
+
+      // "Ask about this home" links: prefill the contact form
+      document.querySelectorAll('.ask').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          goToContact(link.dataset.interest, "I'm interested in " + link.dataset.home + '. Could you tell me more or book a viewing?');
+        });
+      });
+
+      // Contact form: opens the visitor's email app with the message ready to send.
+      // To collect enquiries without an email app, point this form at a service like
+      // Formspree, or add a Vercel serverless function.
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var data = new FormData(contactForm);
+        var subject = 'Enquiry from ' + data.get('name') + ' (' + data.get('interest') + ')';
+        var body = 'Name: ' + data.get('name') + '\n' +
+                   'Phone: ' + data.get('phone') + '\n' +
+                   'Interested in: ' + data.get('interest') + '\n\n' +
+                   (data.get('message') || '');
+        statusEl.textContent = 'Your email app should open with your message ready to send.';
+        window.location.href = 'mailto:' + contactForm.dataset.to +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+      });
+    })();
+  </script>
+</body>
+</html>
