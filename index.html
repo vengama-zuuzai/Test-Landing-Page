@@ -208,6 +208,12 @@
       * { transition: none !important; }
     }
   </style>
+
+  <!-- Warmly visitor identification. This site exists to test the ZUUZ <-> Warmly integration:
+       Warmly identifies who is visiting, then POSTs the signal to the webhook configured in its
+       own dashboard, which is what feeds the Warmly tile in ZUUZ. `defer` so it never blocks
+       rendering; the clientId is public by design (it is in every visitor's page source). -->
+  <script id="warmly-script-loader" src="https://opps-widget.getwarmly.com/warmly.js?clientId=e7eee410749e96ca001e4c3703232986" defer></script>
 </head>
 
 <body>
